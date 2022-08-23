@@ -4,11 +4,12 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UiController : MonoBehaviour
+public class UiManager : MonoBehaviour
 {
-    GUIStyle _guiStyle = new GUIStyle();
-    string _cubesCount;
-    public GameObject endText;
+    private GUIStyle _guiStyle = new GUIStyle();
+    private int _cubesCount;
+    [SerializeField]
+    private GameObject endText;
 
     void Start()
     {
@@ -17,9 +18,9 @@ public class UiController : MonoBehaviour
 
     void Update()
     {
-        _cubesCount = GameManager.gameManager.cubesCount.ToString();
+        _cubesCount = PlayerPrefs.GetInt("cubesCount");
 
-        if (GameManager.gameManager.cubesCount <= 0) endText.SetActive(true); //show end message        
+        if (_cubesCount <= 0) endText.SetActive(true); //show end message        
     }
 
     private void OnGUI()

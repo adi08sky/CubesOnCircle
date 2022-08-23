@@ -313,7 +313,7 @@ GameObject:
   - component: {fileID: 996016603}
   - component: {fileID: 996016602}
   m_Layer: 0
-  m_Name: UiController
+  m_Name: UiManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -331,8 +331,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d5add88469df65468b4b0c0bcc76612, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   endText: {fileID: 374762790}
-  quantityText: {fileID: 0}
 --- !u!4 &996016603
 Transform:
   m_ObjectHideFlags: 0

@@ -5,33 +5,29 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager gameManager;
-    public InitialData initialData;
-    public GameObject spawnablePrefab;
+    [SerializeField]
+    private InitialData initialData;
+    [SerializeField]
+    private GameObject spawnablePrefab;
+        
+    private int _cubesCount;
+    private GameObject[] _cubes;
+    private bool _objectsAreMoving = false;
+    private readonly int _velocityRange = 5;
 
-    [HideInInspector]
-    public int cubesCount;
-    GameObject[] _cubes;
-    bool _objectsAreMoving = false;
-    readonly int _velocityRange = 5;
-
-    Camera _cam;
-    float _screenWidth;
-    float _screenHeight;
+    private Camera _cam;
+    private float _screenWidth;
+    private float _screenHeight;
 
     void Start()
     {
-        if (gameManager == null)
-        {
-            gameManager = this;
-        }
-
         _cam = Camera.main;
         Vector3 coordinates = _cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _cam.transform.position.z*(-1)));
         _screenWidth = coordinates.x;
         _screenHeight = coordinates.y;
-
+                
         SpawnCubeOnEllipse();
+        PlayerPrefs.SetInt("cubesCount", _cubesCount);
         AddUi();
     }
 
@@ -44,7 +40,6 @@ public class GameManager : MonoBehaviour
             GameObject[] objects = GameObject.FindGameObjectsWithTag("Cube");
             CheckDestructionConditions(objects);
         }
-
         CheckExitGame();
     }
 
@@ -56,12 +51,12 @@ public class GameManager : MonoBehaviour
         float semiMajorAxis = initialData.GetSemiMajorAxis();
         float semiMinorAxis = initialData.GetSemiMinorAxis();
 
-        cubesCount = initialData.GetCubesCount();
-        _cubes = new GameObject[cubesCount];
+        _cubesCount = initialData.GetCubesCount();
+        _cubes = new GameObject[_cubesCount];
 
-        float angle = 2 * Mathf.PI / cubesCount;
+        float angle = 2 * Mathf.PI / _cubesCount;
 
-        for (int i = 0; i < cubesCount; i++)
+        for (int i = 0; i < _cubesCount; i++)
         {
             float radius = GetEllipseRadius(semiMinorAxis, semiMajorAxis, angle, i);
             float y_pos = radius * Mathf.Cos(angle * i);
@@ -122,7 +117,7 @@ public class GameManager : MonoBehaviour
                objects[i].transform.position.y < -_screenHeight)
             {
                 Destroy(objects[i]);
-                cubesCount--;
+                _cubesCount--;
                 return;
             }
 
@@ -136,12 +131,13 @@ public class GameManager : MonoBehaviour
                 {
                     Destroy(objects[i]);
                     Destroy(objects[j]);
-                    cubesCount--;
-                    cubesCount--;
+                    _cubesCount--;
+                    _cubesCount--;
                     return;
                 }
             }
         }
+        PlayerPrefs.SetInt("cubesCount", _cubesCount);
     }
 
     /// <summary>
