@@ -16,3 +16,5 @@ ale już nie to który na który wpadł. Ponowne wciśniecie spacji nie robi nic
 10. Unity Phisics używamy do nadania obiektom prędkości, ale już nie do sprawdzania czy cube zderzył się
 z innym lub wyleciał poza ekran. Do wyliczania zderzeń zakładamy że kwadrat jest kołem (wiem że bez
 sensu ale to jest aplikacja treningowa).
+![image](https://user-images.githubusercontent.com/46719355/193826024-6077cfa9-27f6-446f-818b-159eab5e2b7d.png)
+![image](https://user-images.githubusercontent.com/46719355/193826145-46024d57-9e5b-4de9-956a-56dcf9a5b7af.png)
